@@ -52,3 +52,5 @@ src/
 ## Dificultades encontradas y cómo las resolví
 
 - **Error de import duplicado en `App.jsx`:** Vite mostraba "Identifier `Routes` has already been declared". Había copiado dos veces la misma línea de import; al eliminar la repetida se solucionó.
+
+- Siempre me ha costado el CSS, la idea la tengo pero no conozco todos los ajuste de CSS, para conseguir lo que busco, y me cuesta traspasar esa idea al codigo ya que me falta el conocimiento.

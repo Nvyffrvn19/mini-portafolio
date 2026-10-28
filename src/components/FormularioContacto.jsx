@@ -1,49 +1,26 @@
 import { useState } from "react";
 
-const valoresIniciales = { nombre: "", correo: "", mensaje: "" };
-
-function validar(valores) {
-  const errores = {};
-
-  if (!valores.nombre.trim()) {
-    errores.nombre = "El nombre es obligatorio.";
-  }
-
-  if (!valores.correo.trim()) {
-    errores.correo = "El correo es obligatorio.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valores.correo)) {
-    errores.correo = "Ingresa un correo válido.";
-  }
-
-  if (!valores.mensaje.trim()) {
-    errores.mensaje = "El mensaje es obligatorio.";
-  } else if (valores.mensaje.trim().length < 10) {
-    errores.mensaje = "El mensaje debe tener al menos 10 caracteres.";
-  }
-
-  return errores;
-}
-
 function FormularioContacto() {
-  const [valores, setValores] = useState(valoresIniciales);
-  const [errores, setErrores] = useState({});
+  const [nombre, setNombre] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [error, setError] = useState("");
   const [enviado, setEnviado] = useState(false);
-
-  function manejarCambio(e) {
-    const { name, value } = e.target;
-    setValores({ ...valores, [name]: value });
-    setEnviado(false);
-  }
 
   function manejarEnvio(e) {
     e.preventDefault();
-    const nuevosErrores = validar(valores);
-    setErrores(nuevosErrores);
 
-    if (Object.keys(nuevosErrores).length === 0) {
-      setEnviado(true);
-      setValores(valoresIniciales);
+    if (!nombre.trim() || !correo.trim() || !mensaje.trim()) {
+      setError("Por favor completa todos los campos.");
+      setEnviado(false);
+      return;
     }
+
+    setError("");
+    setEnviado(true);
+    setNombre("");
+    setCorreo("");
+    setMensaje("");
   }
 
   return (
@@ -52,40 +29,36 @@ function FormularioContacto() {
         <label htmlFor="nombre">Nombre *</label>
         <input
           id="nombre"
-          name="nombre"
           type="text"
           placeholder="Tu nombre"
-          value={valores.nombre}
-          onChange={manejarCambio}
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
         />
-        {errores.nombre && <span className="error">{errores.nombre}</span>}
       </div>
 
       <div className="campo">
         <label htmlFor="correo">Correo electrónico *</label>
         <input
           id="correo"
-          name="correo"
           type="email"
           placeholder="tu@email.com"
-          value={valores.correo}
-          onChange={manejarCambio}
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
         />
-        {errores.correo && <span className="error">{errores.correo}</span>}
       </div>
 
       <div className="campo">
         <label htmlFor="mensaje">Mensaje *</label>
         <textarea
           id="mensaje"
-          name="mensaje"
           rows="5"
           placeholder="Escribe tu mensaje aquí..."
-          value={valores.mensaje}
-          onChange={manejarCambio}
+          value={mensaje}
+          onChange={(e) => setMensaje(e.target.value)}
         />
-        {errores.mensaje && <span className="error">{errores.mensaje}</span>}
       </div>
+
+      {error && <p className="error">{error}</p>}
 
       <button type="submit" className="boton boton-ancho">Enviar mensaje</button>
 

@@ -1,23 +1,27 @@
+import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaPython } from "react-icons/fa";
+import { SiTypescript } from "react-icons/si";
+
 const tecnologias = [
-  { nombre: "HTML", nivel: 90 },
-  { nombre: "CSS", nivel: 85 },
-  { nombre: "JavaScript", nivel: 75 },
-  { nombre: "React", nivel: 70 },
-  { nombre: "TypeScript", nivel: 60 },
-  { nombre: "Python", nivel: 70 },
+  { nombre: "HTML", nivel: 85, icono: <FaHtml5 /> },
+  { nombre: "CSS", nivel: 70, icono: <FaCss3Alt /> },
+  { nombre: "JavaScript", nivel: 70, icono: <FaJs /> },
+  { nombre: "React", nivel: 60, icono: <FaReact /> },
+  { nombre: "TypeScript", nivel: 50, icono: <SiTypescript /> },
+  { nombre: "Python", nivel: 80, icono: <FaPython /> },
 ];
 
-const herramientas = ["Git", "GitHub", "VS Code", "React", "Node.js"];
+const herramientas = ["Git", "GitHub", "VS Code", "Figma", "Node.js"];
 
 function Habilidades() {
   return (
-    <section>
+    <section className="contenedor">
       <h1>Habilidades y Lenguajes</h1>
 
       <h2 className="subtitulo">Tecnologías</h2>
       <div className="grilla-habilidades">
         {tecnologias.map((t) => (
           <div className="tarjeta-habilidad" key={t.nombre}>
+            <div className="habilidad-icono">{t.icono}</div>
             <h3>{t.nombre}</h3>
             <div className="barra">
               <div className="barra-relleno" style={{ width: `${t.nivel}%` }} />
